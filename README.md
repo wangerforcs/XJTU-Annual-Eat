@@ -39,15 +39,7 @@
 pip install requests matplotlib
 ```
 
-### 2. 运行脚本
-
-```bash
-python main.py
-```
-
-首次运行时，请输入你的`account`和`hallticket`，会自动保存在 `config.json` 文件中。
-
-### 3. 修改配置
+### 2. 修改配置
 
 可以直接修改 `config.json` 文件，主要修改`account`或者`hallticket`，以及计算的起始和截止时间。
 
@@ -59,6 +51,15 @@ python main.py
     "edate": "2024-12-31"
 }
 ```
+
+### 3. 运行脚本
+
+```bash
+python main.py
+```
+
+### 4. 查看结果
+在result.png中显示了消费情况图，report.md中显示了较详细的消费统计报告(也可以在输出中查看)。
 
 ## LICENSE
 
