@@ -66,6 +66,7 @@ if __name__ == "__main__":
     earliest_consumption = {'OCCTIME': '2024-01-01 23:59:59', 'MERCNAME': '', 'TRANAMT': float('inf')}
     latest_consumption = {'OCCTIME': '2024-01-01 00:00:00', 'MERCNAME': '', 'TRANAMT': 0}
     weekdays_consumption = {i: 0 for i in range(7)}  # 0: 周一, 6: 周日
+    bre_lun_din = {"breakfast_count": 0, "breakfast_cost": 0, "lunch_count": 0, "lunch_cost": 0, "dinner_count": 0, "dinner_cost": 0}
     
     # 整理数据
     # MERNAME: 商户名称 TRANNUM: 交易方式 TRANAMT: 交易金额
@@ -80,6 +81,15 @@ if __name__ == "__main__":
                     all_data[item["MERCNAME"].strip()] = tranamt
                 
                 time = datetime.strptime(item["OCCTIME"], "%Y-%m-%d %H:%M:%S")
+                if time.time() < datetime.strptime("10:00:00", "%H:%M:%S").time():
+                    bre_lun_din["breakfast_count"] += 1
+                    bre_lun_din["breakfast_cost"] += tranamt
+                elif time.time() < datetime.strptime("14:00:00", "%H:%M:%S").time():
+                    bre_lun_din["lunch_count"] += 1
+                    bre_lun_din["lunch_cost"] += tranamt
+                else:
+                    bre_lun_din["dinner_count"] += 1
+                    bre_lun_din["dinner_cost"] += tranamt
                 aligned_time_day = time.strftime('%Y-%m-%d')
                 if aligned_time_day in day_data:
                     day_data[aligned_time_day] += tranamt
@@ -117,14 +127,14 @@ if __name__ == "__main__":
     
     # 输出结果
     all_data = dict(sorted(all_data.items(), key=lambda x: x[1], reverse=False))
-    if len(all_data) > 50:
-        # Get top 10 and bottom 10
-        top_10 = dict(list(all_data.items())[:20])
-        bottom_10 = dict(list(all_data.items())[-20:])
+    if len(all_data) > 60:
+        # Get top 30 and bottom 10
+        bottom_10 = dict(list(all_data.items())[:10])
+        top_30 = dict(list(all_data.items())[-30:])
         # Add a separator between top and bottom groups
-        middle_values = list(all_data.values())[20:-20]
-        separator = {"中间省略": round(sum(middle_values), 2)}  # Sum of middle values
-        all_data = {**top_10, **separator, **bottom_10}
+        middle_values = list(all_data.values())[10:-30]
+        separator = {"中间部分消费总额": round(sum(middle_values), 2)}  # Sum of middle values
+        all_data = {**bottom_10, **separator, **top_30}
     
     if platform.system() == "Darwin":
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
@@ -159,6 +169,15 @@ if __name__ == "__main__":
 - 总种类数：{len(all_data)}
 - 总消费次数：{len(data)}
 - 总消费金额：{round(sum(all_data.values()), 1)}元
+
+## 消费分布
+- 早餐次数：{bre_lun_din["breakfast_count"]}次
+- 早餐消费：{bre_lun_din["breakfast_cost"]}元
+- 午餐次数：{bre_lun_din["lunch_count"]}次
+- 午餐消费：{bre_lun_din["lunch_cost"]}元
+- 晚餐次数：{bre_lun_din["dinner_count"]}次
+- 晚餐消费：{bre_lun_din["dinner_cost"]}元
+
 
 ## 最高消费
 - 商户：{max_consumption['MERCNAME']}

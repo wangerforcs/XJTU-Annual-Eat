@@ -4,6 +4,7 @@ result.png
 test.py
 report.md
 data.json
+config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
