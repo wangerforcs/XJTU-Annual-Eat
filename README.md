@@ -9,7 +9,7 @@
 
 本项目是一个用于统计洗脚大学学生校园卡消费情况的脚本。通过模拟登录大学校园卡网站，获取学生的校园卡消费记录，并通过数据可视化的方式展示。
 
-本项目参考[THU-Annual-Eat](https://github.com/leverimmy/THU-Annual-Eat)，感谢原作者的贡献。
+本项目参考[THU-Annual-Eat](https://github.com/leverimmy/THU-Annual-Eat)，[PKU-Annual-Eat](https://github.com/zhuohaoyu/PKU-Annual-Eat)，感谢原作者的贡献。
 
 ![demo](./demo.png)
 
@@ -27,7 +27,7 @@
 
 ![account](./account.png)
 
-`F12` 或者右键检查，打开开发者工具，切换到`Network`标签页，然后`Ctrl+R`刷新页面，找到 `GetMyBill` 这个请求，进入`Cookies`选项卡，复制其中`hallticket`字段的**value**，后面会用到。
+在我的账单页按`F12` 或者右键检查，打开开发者工具，切换到`Network`标签页，然后`Ctrl+R`刷新页面，找到 `GetMyBill` 这个请求，进入`Cookies`选项卡，复制其中`hallticket`字段的**value**，后面会用到。
 
 ![hallticket](./hallticket.png)
 
@@ -41,7 +41,7 @@ pip install requests matplotlib
 
 ### 2. 修改配置
 
-可以直接修改 `config.json` 文件，主要修改`account`或者`hallticket`，以及计算的起始和截止时间。
+项目根目录下新建 `config.json` 文件，内容如下，主要修改`account`或者`hallticket`，以及计算的起始和截止时间。
 
 ```json
 {
@@ -60,6 +60,8 @@ python main.py
 
 ### 4. 查看结果
 在result.png中显示了消费情况图，report.md中显示了较详细的消费统计报告(也可以在输出中查看)。
+
+在商户超过60时，展示消费最高的30个商户，消费最低的10个商户，中间部分显示总额；否则全部展示
 
 ## LICENSE
 
