@@ -126,13 +126,13 @@ if __name__ == "__main__":
     # 输出结果
     all_data = dict(sorted(all_data.items(), key=lambda x: x[1], reverse=False))
     if len(all_data) > 50:
-        # Get top 30 and bottom 10
+        # Get top 40 and bottom 10
         bottom_10 = dict(list(all_data.items())[:10])
-        top_30 = dict(list(all_data.items())[-30:])
+        top_40 = dict(list(all_data.items())[-40:])
         # Add a separator between top and bottom groups
-        middle_values = list(all_data.values())[10:-30]
+        middle_values = list(all_data.values())[10:-40]
         separator = {"中间部分消费总额": round(sum(middle_values), 2)}  # Sum of middle values
-        all_data = {**bottom_10, **separator, **top_30}
+        all_data = {**bottom_10, **separator, **top_40}
     
     if platform.system() == "Darwin":
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
