@@ -6,10 +6,8 @@ from datetime import datetime, timedelta
 
 account = ""
 hallticket = ""
-default_sdate = "2024-01-01"
-default_edate = "2024-12-31"
-sdate = ""
-edate = ""
+sdate = "2024-01-01"
+edate = "2024-12-31"
 all_data = dict()
 week_data = dict()
 day_data = dict()
@@ -21,14 +19,14 @@ if __name__ == "__main__":
             config = json.load(f)
             account = config["account"]
             hallticket = config["hallticket"]
-            sdate = config.get("sdate", default_sdate)
-            edate = config.get("edate", default_edate)
+            sdate = config.get("sdate", '2024-01-01')
+            edate = config.get("edate", '2024-12-31')
     except Exception as e:
         print("账户信息读取失败，请重新输入")
         account = input("请输入account: ")
         hallticket = input("请输入hallticket: ")
         with open("config.json", "w", encoding='utf-8') as f:
-            json.dump({"account": account, "hallticket": hallticket}, f, indent=4)
+            json.dump({"account": account, "hallticket": hallticket, 'sdate': '2024-01-01', 'edate': '2024-12-31'}, f, indent=4)
 
     def is_valid_date(date_str):
         """检查日期是否符合YYYY-MM-DD格式且为有效日期"""
@@ -127,7 +125,7 @@ if __name__ == "__main__":
     
     # 输出结果
     all_data = dict(sorted(all_data.items(), key=lambda x: x[1], reverse=False))
-    if len(all_data) > 60:
+    if len(all_data) > 50:
         # Get top 30 and bottom 10
         bottom_10 = dict(list(all_data.items())[:10])
         top_30 = dict(list(all_data.items())[-30:])
@@ -143,7 +141,7 @@ if __name__ == "__main__":
     else:
         plt.rcParams['font.sans-serif'] = ['SimHei']
         
-    plt.figure(figsize=(12, len(all_data) / 66 * 18))
+    plt.figure(figsize=(15, len(all_data) / 66 * 18))
     plt.barh(list(all_data.keys()), list(all_data.values()))
     for index, value in enumerate(list(all_data.values())):
         plt.text(value + 0.01 * max(all_data.values() or [0]),
