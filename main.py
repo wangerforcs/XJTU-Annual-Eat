@@ -125,14 +125,14 @@ if __name__ == "__main__":
     
     # 输出结果
     all_data = dict(sorted(all_data.items(), key=lambda x: x[1], reverse=False))
-    if len(all_data) > 50:
-        # Get top 40 and bottom 10
-        bottom_10 = dict(list(all_data.items())[:10])
-        top_40 = dict(list(all_data.items())[-40:])
-        # Add a separator between top and bottom groups
-        middle_values = list(all_data.values())[10:-40]
-        separator = {"中间部分消费总额": round(sum(middle_values), 2)}  # Sum of middle values
-        all_data = {**bottom_10, **separator, **top_40}
+    # if len(all_data) > 50:
+    #     # Get top 40 and bottom 10
+    #     bottom_10 = dict(list(all_data.items())[:10])
+    #     top_40 = dict(list(all_data.items())[-40:])
+    #     # Add a separator between top and bottom groups
+    #     middle_values = list(all_data.values())[10:-40]
+    #     separator = {"中间部分消费总额": round(sum(middle_values), 2)}  # Sum of middle values
+    #     all_data = {**bottom_10, **separator, **top_40}
     
     if platform.system() == "Darwin":
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
@@ -141,7 +141,7 @@ if __name__ == "__main__":
     else:
         plt.rcParams['font.sans-serif'] = ['SimHei']
         
-    plt.figure(figsize=(15, len(all_data) / 66 * 18))
+    plt.figure(figsize=(12, len(all_data) / 66 * 18))
     plt.barh(list(all_data.keys()), list(all_data.values()))
     for index, value in enumerate(list(all_data.values())):
         plt.text(value + 0.01 * max(all_data.values() or [0]),
@@ -170,36 +170,35 @@ if __name__ == "__main__":
 
 ## 消费分布
 - 早餐次数：{bre_lun_din["breakfast_count"]}次
-- 早餐消费：{bre_lun_din["breakfast_cost"]}元
+- 早餐消费：{round(bre_lun_din["breakfast_cost"], 1)}元
 - 午餐次数：{bre_lun_din["lunch_count"]}次
-- 午餐消费：{bre_lun_din["lunch_cost"]}元
+- 午餐消费：{round(bre_lun_din["lunch_cost"], 1)}元
 - 晚餐次数：{bre_lun_din["dinner_count"]}次
-- 晚餐消费：{bre_lun_din["dinner_cost"]}元
-
+- 晚餐消费：{round(bre_lun_din["dinner_cost"], 1)}元
 
 ## 最高消费
 - 商户：{max_consumption['MERCNAME']}
-- 金额：{max_consumption['TRANAMT']}元
+- 金额: {round(max_consumption['TRANAMT'], 1)}元
 
 ## 最低消费
 - 商户：{min_consumption['MERCNAME']}
-- 金额：{min_consumption['TRANAMT']}元
+- 金额: {round(min_consumption['TRANAMT'], 1)}元
 
 ## 最高天消费
 - 日期：{max(day_data, key=day_data.get)}
-- 金额：{max(day_data.values())}元
+- 金额：{round(max(day_data.values()), 1)}元
 
 ## 最低天消费
 - 日期：{min(day_data, key=day_data.get)}
-- 金额：{min(day_data.values())}元
+- 金额：{round(min(day_data.values()), 1)}元
 
 ## 最高周消费
 - 周一日期：{max(week_data, key=week_data.get)}
-- 金额：{max(week_data.values())}元
+- 金额：{round(max(week_data.values()), 1)}元
 
 ## 最低周消费
 - 周一日期：{min(week_data, key=week_data.get)}
-- 金额：{min(week_data.values())}元
+- 金额：{round(min(week_data.values()), 1)}元
 
 ## 最早消费
 - 时间：{earliest_consumption['OCCTIME']}
@@ -216,7 +215,7 @@ if __name__ == "__main__":
 | ---- | ------------ |
 """
     for i, amount in weekdays_consumption.items():
-        markdown_content += f"| 周{i+1} | {amount} |\n"
+        markdown_content += f"| 周{i+1} | {round(amount, 1)} |\n"
         
     print(markdown_content)
 
