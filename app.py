@@ -230,6 +230,7 @@ def update_info(account, hallticket, sdate, edate):
 
 
 with st.sidebar:
+    st.write(" account 和 hallticket 获取方法：https://github.com/wangerforcs/XJTU-Annual-Eat")
     account = st.text_input("请输入account", value=st.session_state.account)
     hallticket = st.text_input("请输入hallticket", value=st.session_state.hallticket)
     sdate = st.text_input("请输入起始日期", value=st.session_state.sdate)
