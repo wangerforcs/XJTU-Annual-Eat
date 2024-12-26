@@ -188,9 +188,9 @@ def generate_report(account, hallticket, sdate, edate):
     
     with gc2:
     
-        col1, col2 = st.columns(2)
+        c1, c2 = st.columns(2)
         colors = ['gold', 'mediumturquoise', 'darkorange']
-        with col1:
+        with c1:
             # 使用plotly绘制三餐消费次数饼图
             pie_fig = px.pie(values=[bre_lun_din["breakfast_count"], bre_lun_din["lunch_count"], bre_lun_din["dinner_count"]],
                             names=["早餐", "午餐", "晚餐"],
@@ -198,7 +198,7 @@ def generate_report(account, hallticket, sdate, edate):
             pie_fig.update_traces(textinfo='label+percent', insidetextorientation='radial',
                                 marker=dict(colors=colors, line=dict(color='#000000', width=2)))
             st.plotly_chart(pie_fig)
-        with col2:
+        with c2:
             # 使用plotly绘制三餐消费金额饼图
             pie_fig = px.pie(values=[bre_lun_din["breakfast_cost"], bre_lun_din["lunch_cost"], bre_lun_din["dinner_cost"]],
                             names=["早餐", "午餐", "晚餐"],
