@@ -61,6 +61,7 @@ def generate_report(account, hallticket, sdate, edate):
     
     # 整理数据
     # MERNAME: 商户名称 TRANNUM: 交易方式 TRANAMT: 交易金额
+    pre_bre_day = ""
     for item in data:
         try:
             if(item["TRANAMT"] < 0):
@@ -72,8 +73,10 @@ def generate_report(account, hallticket, sdate, edate):
                     all_data[item["MERCNAME"].strip()] = tranamt
                 
                 time = datetime.strptime(item["OCCTIME"], "%Y-%m-%d %H:%M:%S")
-                if time.time() < datetime.strptime("10:00:00", "%H:%M:%S").time():
-                    bre_lun_din["breakfast_count"] += 1
+                if time.time() < datetime.strptime("9:50:00", "%H:%M:%S").time():
+                    if pre_bre_day != time.strftime('%Y-%m-%d'):
+                        bre_lun_din["breakfast_count"] += 1
+                        pre_bre_day = time.strftime('%Y-%m-%d')
                     bre_lun_din["breakfast_cost"] += tranamt
                 elif time.time() < datetime.strptime("14:00:00", "%H:%M:%S").time():
                     bre_lun_din["lunch_count"] += 1

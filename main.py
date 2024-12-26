@@ -69,6 +69,7 @@ if __name__ == "__main__":
     
     # 整理数据
     # MERNAME: 商户名称 TRANNUM: 交易方式 TRANAMT: 交易金额
+    pre_bre_day = ""
     for item in data:
         try:
             if(item["TRANAMT"] < 0):
@@ -80,8 +81,14 @@ if __name__ == "__main__":
                     all_data[item["MERCNAME"].strip()] = tranamt
                 
                 time = datetime.strptime(item["OCCTIME"], "%Y-%m-%d %H:%M:%S")
-                if time.time() < datetime.strptime("10:00:00", "%H:%M:%S").time():
-                    bre_lun_din["breakfast_count"] += 1
+                # 修改早餐判定逻辑，卡掉第一节下课后却又在10:00之前吃上饭的，比如我:)
+                # 另外考虑到早餐可能多次刷卡，将同一天的早餐消费合并为1次
+                # 然后发现吃早饭的天数为个位数(:
+                if time.time() < datetime.strptime("9:50:00", "%H:%M:%S").time():
+                    print(pre_bre_day, time.strftime('%Y-%m-%d'),tranamt)
+                    if pre_bre_day != time.strftime('%Y-%m-%d'):
+                        bre_lun_din["breakfast_count"] += 1
+                        pre_bre_day = time.strftime('%Y-%m-%d')
                     bre_lun_din["breakfast_cost"] += tranamt
                 elif time.time() < datetime.strptime("14:00:00", "%H:%M:%S").time():
                     bre_lun_din["lunch_count"] += 1
@@ -137,8 +144,8 @@ if __name__ == "__main__":
     
     if platform.system() == "Darwin":
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-    elif platform.system() == "Linux":
-        plt.rcParams['font.family'] = ['Droid Sans Fallback', 'DejaVu Sans']
+    # elif platform.system() == "Linux":
+    #     plt.rcParams['font.family'] = ['Droid Sans Fallback', 'DejaVu Sans']
     else:
         plt.rcParams['font.sans-serif'] = ['SimHei']
         
