@@ -161,6 +161,13 @@ def generate_report(account, hallticket, sdate, edate):
     - 时间：{latest_consumption['OCCTIME']} {latest_consumption['MERCNAME']}
     - 金额：{latest_consumption['TRANAMT']}元
     """)
+        
+    if platform.system() == "Darwin":
+        plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    elif platform.system() == "Linux":
+        plt.rcParams['font.family'] = ['Droid Sans Fallback', 'DejaVu Sans']
+    else:
+        plt.rcParams['font.sans-serif'] = ['SimHei']
     
     gc1, gc2 = st.columns(2)
     # 绘制图表
