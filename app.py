@@ -164,8 +164,6 @@ def generate_report(account, hallticket, sdate, edate):
         
     if platform.system() == "Darwin":
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-    elif platform.system() == "Linux":
-        plt.rcParams['font.family'] = ['Droid Sans Fallback', 'DejaVu Sans']
     else:
         plt.rcParams['font.sans-serif'] = ['SimHei']
     
