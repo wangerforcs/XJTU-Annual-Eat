@@ -36,7 +36,7 @@
 本项目依赖于 `requests`、`matplotlib`，请确保你的 Python 环境中已经安装了这些库。
 
 ```bash
-pip install requests matplotlib
+pip install -r requirements.txt
 ```
 
 ### 2. 修改配置

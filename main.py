@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import requests
 import platform
 from datetime import datetime, timedelta
+import seaborn as sns
 
 account = ""
 hallticket = ""
@@ -124,7 +125,7 @@ if __name__ == "__main__":
     summary = f"统计总种类数：{len(all_data)}\n总消费次数：{len(data)}\n总消费金额：{round(sum(all_data.values()), 1)}"
     
     # 输出结果
-    all_data = dict(sorted(all_data.items(), key=lambda x: x[1], reverse=False))
+    all_data = dict(sorted(all_data.items(), key=lambda x: x[1], reverse=True))
     # if len(all_data) > 50:
     #     # Get top 40 and bottom 10
     #     bottom_10 = dict(list(all_data.items())[:10])
@@ -142,7 +143,8 @@ if __name__ == "__main__":
         plt.rcParams['font.sans-serif'] = ['SimHei']
         
     plt.figure(figsize=(12, len(all_data) / 66 * 18))
-    plt.barh(list(all_data.keys()), list(all_data.values()))
+    sns.barplot(x=list(all_data.values()), y=list(all_data.keys()), hue=list(all_data.keys()))
+    # plt.barh(list(all_data.keys()), list(all_data.values()))
     for index, value in enumerate(list(all_data.values())):
         plt.text(value + 0.01 * max(all_data.values() or [0]),
                 index,
@@ -154,7 +156,7 @@ if __name__ == "__main__":
     plt.title(f"洗脚大学食堂消费情况\n({post_data['sdate']} 至 {post_data['edate']})")
     plt.xlabel("消费金额（元）")
     plt.text(0.8, 0.1, summary, ha='center', va='center', transform=plt.gca().transAxes)
-    plt.savefig("result.png",bbox_inches='tight')
+    plt.savefig("result.png",bbox_inches='tight',dpi=300)
     plt.show()
     
     
