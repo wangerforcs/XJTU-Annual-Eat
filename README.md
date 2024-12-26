@@ -31,7 +31,30 @@
 
 ![hallticket](./hallticket.png)
 
-### 1. 安装依赖
+### 网页模式
+
+基于streamlit实现的网页可视化
+
+#### 1. 安装依赖
+
+```shell
+pip install requirements_st.txt
+```
+
+#### 2. 运行页面
+
+```shell
+streamlit run app.py
+```
+
+#### 3. 填写个人信息生成报告
+
+在侧边栏填入前面获取到的`account`和`hallticket`，点击生成报告按钮生成。
+![](./st_page.jpg)
+
+### 本地运行模式
+
+#### 1. 安装依赖
 
 本项目依赖于 `requests`、`matplotlib`，请确保你的 Python 环境中已经安装了这些库。
 
@@ -39,7 +62,7 @@
 pip install -r requirements.txt
 ```
 
-### 2. 修改配置
+#### 2. 修改配置
 
 项目根目录下新建 `config.json` 文件，内容如下，主要修改`account`或者`hallticket`，以及计算的起始和截止时间。
 
@@ -52,13 +75,13 @@ pip install -r requirements.txt
 }
 ```
 
-### 3. 运行脚本
+#### 3. 运行脚本
 
 ```bash
 python main.py
 ```
 
-### 4. 查看结果
+#### 4. 查看结果
 在result.png中显示了消费情况图，report.md中显示了较详细的消费统计报告(也可以在输出中查看)。
 python运行时的图可能出现字体重叠和图片大小不合适的问题，建议直接看导出的result.png。
 
