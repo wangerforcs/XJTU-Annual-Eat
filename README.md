@@ -38,7 +38,7 @@
 #### 1. 安装依赖
 
 ```shell
-pip install requirements_st.txt
+pip install -r requirements_st.txt
 ```
 
 #### 2. 运行页面
