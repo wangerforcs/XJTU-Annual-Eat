@@ -15,19 +15,22 @@
 
 ## 使用方法
 
-### 0. 获取account和hallticket
+首先，登录校园卡账号后，在[洗脚大学校园卡网站](http://card.xjtu.edu.cn/User/User)获取你的`account`和`hallticket`。登录后界面如下，主要使用`个人中心`和`我的账单`两个功能。
 
-首先，登录校园卡账号后，在[洗脚大学校园卡网站](http://card.xjtu.edu.cn/User/User)获取你的`account`和`hallticket`。方法如下：
+
 
 ![card](./card.png)
 
-主页进入[个人中心](http://card.xjtu.edu.cn/)
+### 获取account
 
-点击`账号管理`，在弹出的页面中找到`账号`，复制其值。
+
+主页进入[个人中心](http://card.xjtu.edu.cn/)，点击`账号管理`，在弹出的页面中找到`账号`，复制其值。
 
 ![account](./account.png)
 
-在我的账单页按`F12` 或者右键检查，打开开发者工具，切换到`Network`标签页，然后`Ctrl+R`刷新页面，找到 `GetMyBill` 这个请求，进入`Cookies`选项卡，复制其中`hallticket`字段的**value**，后面会用到。
+### 获取hallticket
+
+在`我的账单`页按`F12` 或者右键检查，打开开发者工具，切换到`Network`标签页，然后`Ctrl+R`刷新页面，找到 `GetMyBill` 这个请求，进入`Cookies`选项卡，复制其中`hallticket`字段的**value**，后面会用到。
 
 ![hallticket](./hallticket.png)
 
